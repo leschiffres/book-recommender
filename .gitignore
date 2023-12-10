@@ -1,0 +1,6 @@
+poetry.lock
+misc_dev/
+__pycache__/
+.ipynb_checkpoints/
+*.ipynb
+.env
