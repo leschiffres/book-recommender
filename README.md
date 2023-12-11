@@ -1,6 +1,9 @@
 # book-recommender
 
-This is an app that makes use of sentence embeddings to be able to find appropriate books, based on the given desired description.
+<!-- ![](results/mainapp.png) -->
+<img src="results/mainapp.png" width="400" height="340"/>
+
+This is an web app that makes use of sentence embeddings to be able to find appropriate books, based on the given desired description.
 
 Given a desired book description desire e.g. "An adventure book with plotwist" the app finds the most appropriate books based on their description.
 
@@ -8,6 +11,8 @@ The book collection used was found in [kaggle](https://www.kaggle.com/datasets/i
 The app computes beforehand the sentence embeddings for all books using their description and then for every new request
 the embedding based on the given query is computed and then computes the cosine similarity to measure the distance between
 the given query and any book description.
+
+The framework to setup the app is Fastapi.
 
 ## Usage
 
@@ -29,10 +34,32 @@ DB_PASSWORD='<>'
 DB_NAME='<>'
 ```
 
-Then you can run the program like so:
+Before running the webapp you can run:
 
 ```bash
 poetry install
 export $(grep -v '^#' .env | xargs)
-python -m book_recommender
+poetry run python -m book_recommender
 ```
+
+To populae the books in the database. Then you can start the app by
+
+```bash
+poetry run uvicorn app.main:app --reload
+```
+
+## Examples
+
+Here I show some examples for the results that one receives for some queries
+
+- something that can help me improve my day to day life
+
+![](results/day_to_day.png)
+
+- mental health
+
+![](results/mental_health.png)
+
+- a story that adults and children could also enjoy
+
+![children_and_adults|50x50](results/children_and_adults.png)

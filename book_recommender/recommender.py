@@ -50,4 +50,4 @@ class BookRecommender():
         new_embedding = self.transformer.get_embedding(text)
         self.df['cosine_similarity'] = self.df['embedding'].apply(lambda x: self.transformer.get_distance(x, new_embedding))
         self.df = self.df.sort_values(by='cosine_similarity', ascending=False, ignore_index=True)
-        return self.df[['book_name', 'author', 'description', 'genres', 'cosine_similarity']].head(k)
+        return self.df[['book_name', 'author', 'description',  'url']].head(k)

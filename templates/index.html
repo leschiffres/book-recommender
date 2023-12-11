@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Recommender</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1>Book Recommender</h1>
+
+    <img src="{{ url_for('static', path='books.jpeg') }}" alt="Book Image" style="max-width: 20%; height: auto; margin-bottom: 20px;">
+
+
+    <form action="/search/" method="post">
+        <label for="search_term">Search:</label>
+        <input type="text" id="search_term" name="search_term" required>
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if books %}
+    <h2>Search Results</h2>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td><a href="{{ book.url }}" target="_blank">{{ book.book_name }}</a></td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
