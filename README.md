@@ -8,9 +8,7 @@ This is an web app that makes use of sentence embeddings to be able to find appr
 Given a desired book description desire e.g. "An adventure book with plotwist" the app finds the most appropriate books based on their description.
 
 The book collection used was found in [kaggle](https://www.kaggle.com/datasets/ishikajohari/best-books-10k-multi-genre-data). They are still stored in this repo for convenience.
-The app computes beforehand the sentence embeddings for all books using their description and then for every new request
-the embedding based on the given query is computed and then computes the cosine similarity to measure the distance between
-the given query and any book description.
+The app computes beforehand the sentence embeddings for all books using their description. Then for every new request the embedding based on the given query is computed and then computes the cosine similarity to measure the distance between the given query and any book description.
 
 The framework to setup the app is Fastapi.
 
@@ -34,7 +32,7 @@ DB_PASSWORD='<>'
 DB_NAME='<>'
 ```
 
-Before running the webapp you can run:
+Before running the webapp, to populate the books in the database, you can start the app by:
 
 ```bash
 poetry install
@@ -42,7 +40,7 @@ export $(grep -v '^#' .env | xargs)
 poetry run python -m book_recommender
 ```
 
-To populae the books in the database. Then you can start the app by
+and then to start the web app:
 
 ```bash
 poetry run uvicorn app.main:app --reload
