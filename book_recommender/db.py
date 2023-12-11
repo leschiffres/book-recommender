@@ -3,6 +3,7 @@ import psycopg2
 import psycopg2.extras
 import pandas as pd
 import numpy as np
+import os
 
 def create_table(POSTGRES_CONFIG):
     pg_connection = psycopg2.connect(**POSTGRES_CONFIG)
@@ -22,17 +23,6 @@ def create_table(POSTGRES_CONFIG):
         pg_cur.execute(query)
     pg_connection.commit()
     pg_connection.close()
-
-def insert_books_sql_alchemy(POSTGRES_CONFIG, data:pd.DataFrame):
-    data['embedding'] = data['embedding'].apply(lambda x: x.tolist())
-    engine = create_engine("postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}".format(
-        user= POSTGRES_CONFIG['user'],
-        password= POSTGRES_CONFIG['password'],
-        host= POSTGRES_CONFIG['host'],
-        port= POSTGRES_CONFIG['port'],
-        database= POSTGRES_CONFIG['database'],
-    ))
-    data.to_sql('books', engine, index=False, if_exists='replace')
 
 def store_books(POSTGRES_CONFIG, data:pd.DataFrame):
     update_query = """
@@ -64,6 +54,12 @@ def read_books(POSTGRES_CONFIG):
         # df['embedding'] = df['embedding'].apply(lambda x: np.array(list(eval(x))).astype(np.float32))
     return df
 
-
 if __name__ == '__main__':
-    create_table()
+    POSTGRES_CONFIG = {
+        "host": os.environ['DB_HOST'],
+        "port": os.environ['DB_PORT'],
+        "user": os.environ['DB_USER'],
+        "password": os.environ['DB_PASSWORD'],
+        "database": os.environ['DB_NAME'],
+    }
+    create_table(POSTGRES_CONFIG)    

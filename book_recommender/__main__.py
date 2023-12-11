@@ -17,7 +17,7 @@ POSTGRES_CONFIG = {
 }
 
 if __name__ == "__main__":
-    # br = BookRecommender(POSTGRES_CONFIG, load_from_db=False)
+    # Set the load_from_db to False to compute the embeddings for the first time
     br = BookRecommender(POSTGRES_CONFIG, load_from_db=True)
     while True:
         desc = input("Please give your description about a book that you want to read:\n")

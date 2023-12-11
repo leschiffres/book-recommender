@@ -3,7 +3,10 @@ from sentence_transformers import SentenceTransformer, util
 import torch
 
 class EmbeddingsProducer(ABC):
-
+    """
+    We create a parent class so that we can replace SentenceTransformersEmbeddings with any class
+    that can compute the embedding and provide a distance function for it.
+    """
     @abstractmethod
     def get_embedding(self, text):
         pass
